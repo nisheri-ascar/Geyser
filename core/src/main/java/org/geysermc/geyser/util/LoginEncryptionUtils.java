@@ -141,10 +141,7 @@ public class LoginEncryptionUtils {
 
             geyser.getLogger().debug(String.format("Is player data valid? %s", validChain));
 
-            if (!validChain && !session.getGeyser().getConfig().isEnableProxyConnections()) {
-                session.disconnect(GeyserLocale.getLocaleStringLog("geyser.network.remote.invalid_xbox_account"));
-                return;
-            }
+           
             JWSObject jwt = JWSObject.parse(certChainData.get(certChainData.size() - 1).asText());
             JsonNode payload = JSON_MAPPER.readTree(jwt.getPayload().toBytes());
 
