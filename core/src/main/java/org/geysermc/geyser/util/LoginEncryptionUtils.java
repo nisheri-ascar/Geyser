@@ -96,7 +96,6 @@ public class LoginEncryptionUtils {
             } else if (!lastKey.equals(expectedKey)) {
                 return false;
             }
-
             if (!EncryptionUtils.verifyJwt(jwt, lastKey)) {
                 return false;
             }
@@ -131,10 +130,6 @@ public class LoginEncryptionUtils {
             boolean validChain = validateChainData(certChainData);
 
             geyser.getLogger().debug(String.format("Is player data valid? %s", validChain));
-
-            if (!validChain && !session.getGeyser().getConfig().isEnableProxyConnections()) {
-                session.disconnect(GeyserLocale.getLocaleStringLog("geyser.network.remote.invalid_xbox_account"));
-                return;
             }
             JWSObject jwt = certChainData.get(certChainData.size() - 1);
             JsonNode payload = JSON_MAPPER.readTree(jwt.getPayload().toBytes());
